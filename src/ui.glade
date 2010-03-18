@@ -1,0 +1,422 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkStatusIcon" id="trayicon">
+    <property name="file">logo.png</property>
+    <property name="title">Gnome Wallpaper Changer</property>
+    <signal name="activate" handler="trayicon_activate_cb"/>
+    <signal name="popup_menu" handler="trayicon_popup_menu_cb"/>
+  </object>
+  <object class="GtkAction" id="confirm_settings">
+    <property name="stock_id">gtk-apply</property>
+    <signal name="activate" handler="confirm_settings_activate_cb"/>
+  </object>
+  <object class="GtkAction" id="cancel_settings">
+    <property name="stock_id">gtk-cancel</property>
+    <signal name="activate" handler="cancel_settings_activate_cb"/>
+  </object>
+  <object class="GtkAction" id="add_dir">
+    <property name="stock_id">gtk-add</property>
+    <signal name="activate" handler="add_dir_activate_cb"/>
+  </object>
+  <object class="GtkAction" id="del_dir">
+    <property name="stock_id">gtk-remove</property>
+    <signal name="activate" handler="del_dir_activate_cb"/>
+  </object>
+  <object class="GtkMenu" id="main_menu">
+    <property name="tearoff_title">Gnome Wallpaper Changer</property>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem1">
+        <property name="visible">True</property>
+        <property name="related_action">change_wallpaper</property>
+        <property name="use_action_appearance">True</property>
+        <property name="use_stock">True</property>
+        <property name="always_show_image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem2">
+        <property name="visible">True</property>
+        <property name="related_action">show_settings</property>
+        <property name="use_action_appearance">True</property>
+        <property name="use_stock">True</property>
+        <property name="always_show_image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem3">
+        <property name="visible">True</property>
+        <property name="related_action">show_about</property>
+        <property name="use_action_appearance">True</property>
+        <property name="use_stock">True</property>
+        <property name="always_show_image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="menuitem4">
+        <property name="visible">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem5">
+        <property name="visible">True</property>
+        <property name="related_action">quit_program</property>
+        <property name="use_action_appearance">True</property>
+        <property name="use_stock">True</property>
+        <property name="always_show_image">True</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAction" id="change_wallpaper">
+    <property name="label">Change Now</property>
+    <property name="stock_id">gtk-media-play</property>
+    <signal name="activate" handler="change_wallpaper_activate_cb"/>
+  </object>
+  <object class="GtkAction" id="show_settings">
+    <property name="label">Preferences</property>
+    <property name="stock_id">gtk-preferences</property>
+    <signal name="activate" handler="show_settings_activate_cb"/>
+  </object>
+  <object class="GtkAction" id="show_about">
+    <property name="label">About</property>
+    <property name="stock_id">gtk-about</property>
+    <signal name="activate" handler="show_about_activate_cb"/>
+  </object>
+  <object class="GtkAction" id="quit_program">
+    <property name="label">Quit</property>
+    <property name="stock_id">gtk-quit</property>
+    <signal name="activate" handler="quit_program_activate_cb"/>
+  </object>
+  <object class="GtkWindow" id="settings_window">
+    <child>
+      <object class="GtkVBox" id="vbox1">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow1">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">automatic</property>
+            <property name="vscrollbar_policy">automatic</property>
+            <child>
+              <object class="GtkTreeView" id="locations">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="model">directories</property>
+                <property name="reorderable">True</property>
+                <property name="rules_hint">True</property>
+                <property name="fixed_height_mode">True</property>
+                <property name="enable_grid_lines">horizontal</property>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumn1">
+                    <property name="sizing">autosize</property>
+                    <property name="title">URI</property>
+                    <property name="expand">True</property>
+                    <property name="reorderable">True</property>
+                    <property name="sort_indicator">True</property>
+                    <property name="sort_column_id">0</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHButtonBox" id="hbuttonbox3">
+            <property name="visible">True</property>
+            <property name="homogeneous">True</property>
+            <property name="layout_style">spread</property>
+            <child>
+              <object class="GtkButton" id="button1">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">True</property>
+                <property name="related_action">add_dir</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button2">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">True</property>
+                <property name="related_action">del_dir</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTable" id="table1">
+            <property name="visible">True</property>
+            <property name="n_rows">2</property>
+            <property name="n_columns">2</property>
+            <property name="column_spacing">2</property>
+            <child>
+              <object class="GtkHBox" id="hbox1">
+                <property name="visible">True</property>
+                <property name="spacing">2</property>
+                <child>
+                  <object class="GtkSpinButton" id="spinbutton1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="caps_lock_warning">False</property>
+                    <property name="adjustment">time_adjust</property>
+                    <property name="climb_rate">1</property>
+                    <property name="numeric">True</property>
+                    <property name="update_policy">if-valid</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label3">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">seconds</property>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label1">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Duration</property>
+              </object>
+              <packing>
+                <property name="x_options">GTK_FILL</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Display Style</property>
+              </object>
+              <packing>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
+                <property name="x_options">GTK_FILL</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="styles">
+                <property name="visible">True</property>
+                <property name="model">style_list</property>
+                <property name="active">0</property>
+                <child>
+                  <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
+                <property name="x_options">GTK_FILL</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHButtonBox" id="hbuttonbox1">
+            <property name="visible">True</property>
+            <property name="homogeneous">True</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="button4">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">True</property>
+                <property name="related_action">cancel_settings</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button3">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">True</property>
+                <property name="related_action">confirm_settings</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAdjustment" id="time_adjust">
+    <property name="value">60</property>
+    <property name="lower">1</property>
+    <property name="upper">86400</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+    <property name="page_size">10</property>
+  </object>
+  <object class="GtkListStore" id="style_list">
+    <columns>
+      <!-- column-name styles -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Fill screen</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Scaled</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Centered</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Zoom</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Tiled</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="directories">
+    <columns>
+      <!-- column-name uri -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkAboutDialog" id="about_me">
+    <property name="border_width">5</property>
+    <property name="title" translatable="yes">About</property>
+    <property name="icon">logo.png</property>
+    <property name="type_hint">normal</property>
+    <property name="has_separator">False</property>
+    <property name="program_name">Gnome Wallpaper Changer</property>
+    <property name="version">remake</property>
+    <property name="copyright" translatable="yes">Copyright (C) 2010 Ronmi Ren	</property>
+    <property name="comments" translatable="yes" comments="Use your own idea to intrduce this application freely.">This program changes your wallpaper with time.</property>
+    <property name="website">http://github.com/Ronmi/gwc-remake</property>
+    <property name="website_label" translatable="yes">Source codes are hosted by GitHub</property>
+    <property name="license" translatable="yes" comments="DO NOT translate this before conducting professional lawyer about the content.">This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</property>
+    <property name="authors">Ronmi Ren &lt;ronmi@rmi.twbbs.org&gt;</property>
+    <property name="translator_credits" translatable="yes" comments="Add your name and email to the list">&lt;translator-credits&gt;</property>
+    <property name="artists">Ronmi Ren &lt;ronmi@rmi.twbbs.org&gt;</property>
+    <property name="logo">logo.png</property>
+    <property name="wrap_license">True</property>
+    <signal name="close" handler="about_me_close_cb"/>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox1">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area1">
+            <property name="visible">True</property>
+            <property name="layout_style">end</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkFileChooserDialog" id="dir_chooser">
+    <property name="border_width">5</property>
+    <property name="title" translatable="yes">Choose directory</property>
+    <property name="default_width">400</property>
+    <property name="default_height">300</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="icon">logo.png</property>
+    <property name="type_hint">normal</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="has_separator">False</property>
+    <property name="local_only">False</property>
+    <property name="action">select-folder</property>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox2">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area2">
+            <property name="visible">True</property>
+            <property name="layout_style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
